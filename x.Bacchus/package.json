@@ -1,0 +1,28 @@
+{
+  "name": "x.bacchus",
+  "version": "0.0.1",
+  "description": "Resource management and work intake tool",
+  "main": "./Home/Index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szul/Bacchus.git"
+  },
+  "keywords": [
+    "\"resource",
+    "management\"",
+    "\"work",
+    "intake\""
+  ],
+  "author": "Michael Szul <michael@szul.us>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/szul/Bacchus/issues"
+  },
+  "homepage": "https://github.com/szul/Bacchus#readme",
+  "dependencies": {
+    "metronical.metron": "^2.2.11"
+  }
+}

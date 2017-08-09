@@ -1,2 +1,2 @@
 # Bacchus
-Resource management for project planning and work intake
+Resource management for project planning and work intake.

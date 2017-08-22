@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/szul/Bacchus#readme",
   "dependencies": {
+    "flotr2": "^0.1.0",
     "metronical.metron": "^2.2.11"
   }
 }

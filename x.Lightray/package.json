@@ -1,5 +1,5 @@
 {
-  "name": "x.bacchus",
+  "name": "x.lightray",
   "version": "0.0.1",
   "description": "Resource management and work intake tool",
   "main": "./Home/Index",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/szul/Bacchus.git"
+    "url": "git+https://github.com/szul/Lightray.git"
   },
   "keywords": [
     "\"resource",
@@ -19,9 +19,9 @@
   "author": "Michael Szul <michael@szul.us>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/szul/Bacchus/issues"
+    "url": "https://github.com/szul/Lightray/issues"
   },
-  "homepage": "https://github.com/szul/Bacchus#readme",
+  "homepage": "https://github.com/szul/Lightray#readme",
   "dependencies": {
     "flotr2": "^0.1.0",
     "metronical.metron": "^2.2.11"

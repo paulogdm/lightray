@@ -1,4 +1,4 @@
-USE [Bacchus]
+USE [Lightray]
 GO
 /****** Object:  Table [dbo].[Department]    Script Date: 9/15/2017 3:44:51 PM ******/
 SET ANSI_NULLS ON

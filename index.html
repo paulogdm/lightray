@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title></title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Exo" />
+    <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css" />
+    <link rel="stylesheet" href="./node_modules/milligram/dist/milligram.min.css" />
+    <link rel="stylesheet" href="./node_modules/metronical.metron/dist/css/app.css" />
+    <link rel="stylesheet" href="./static/css/app.css" />
+
+    <link rel="stylesheet" href="./node_modules/chronoline/dist/chronoline.css" />
+
+    <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="./node_modules/qtip2/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="./node_modules/raphael/raphael.min.js"></script>
+    <script type="text/javascript" src="./node_modules/chronoline/dist/chronoline.min.js"></script>
+
+  </head>
+  <body>
+    <header></header>
+    <main>
+        <h1></h1>
+        <div id="timeline">
+
+        </div>
+    </main>
+    <footer></footer>
+    <script type="text/javascript">
+      var plays = [
+        {
+          "play": "The Two Gentlemen of Verona", 
+          "date": "1589-1591",
+          "record": "Francis Meres'...",
+          "published": "First Folio (1623)",   
+          "performance": "adaptation by Benjamin Victor...",
+          "evidence": "The play contains..." 
+        }, { 
+          "play": "The Taming of the Shrew",     
+          "date": "1590-1594", 
+          "record": "possible version...", 
+          "published": "possible version...", 
+          "performance": "According to Philip Henslowe...",  
+          "evidence": "Kier Elam posits..."
+        }, { 
+          "play": "Henry VI, Part 2",
+          "date": "1590-1591", 
+          "record": "version of the...",   
+          "published": "version of the...",   
+          "performance": "although it is known...",         
+          "evidence": "It is known..." 
+        }
+      ];
+
+      var descTerms = [
+          { key: "record",      label: "First official record"},
+          { key: "published",   label: "First published"},
+          { key: "performance", label: "First recorded performance"},
+          { key: "evidence",    label: "Evidence"},
+      ];
+
+      var events = $.map(plays, function(play) {
+          var event = {};
+          event.title = play.play;
+          if (play.date.indexOf("-") !== -1) {
+              var daterange = play.date.split("-");
+              event.dates = [new Date(daterange[0], 0, 1), new Date(daterange[1], 11, 31)]
+          } else {
+              event.dates = [new Date(play.date, 0, 1), new Date(play.date, 11, 31)]
+          }
+          return event;
+      });
+
+      var timeline = new Chronoline($("#timeline")[0], events, {
+          animated: true,
+          defaultStartDate: new Date(1589, 0, 1),
+          draggable: true,
+          hashInterval: function(date) {
+              return date.getDate() === 1;
+          },
+          labelInterval: function(date) {
+              return date.getMonth() === 0 && date.getDate() === 1;
+          },
+          labelFormat: "%Y",
+          markToday: false,
+          scrollLeft: function(date) {
+              return new Date(date.getFullYear() - 1, date.getMonth(), date.getDate());
+          },
+          scrollRight: function(date) {
+              return new Date(date.getFullYear() + 1, date.getMonth(), date.getDate());
+          },
+          subLabel: null,
+          subSubLabel: null,
+          timelinePadding: DAY_IN_MILLISECONDS * 366 / 4,
+          tooltips: true,
+          visibleSpan: DAY_IN_MILLISECONDS * 366 * 5
+      });
+
+    </script>
+  </body>
+</html>

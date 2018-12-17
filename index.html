@@ -12,82 +12,316 @@
     <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css" />
     <link rel="stylesheet" href="./node_modules/milligram/dist/milligram.min.css" />
     <link rel="stylesheet" href="./node_modules/metronical.metron/dist/css/app.css" />
-    <link rel="stylesheet" href="./static/css/app.css" />
 
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.css" />
     <link rel="stylesheet" href="./node_modules/chronoline/dist/chronoline.css" />
+
+    <style media="screen">
+        main {
+            text-align: center;
+        }
+        table {
+            margin: 5rem auto;
+            width: 90%;
+        }
+        th, td {
+            font-size: 1.4rem;
+        }
+    </style>
 
     <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./node_modules/qtip2/jquery.qtip.min.js"></script>
     <script type="text/javascript" src="./node_modules/raphael/raphael.min.js"></script>
-    <script type="text/javascript" src="./node_modules/chronoline/dist/chronoline.min.js"></script>
+    <script type="text/javascript" src="./node_modules/chronoline/dist/chronoline.js"></script>
 
   </head>
   <body>
     <header></header>
     <main>
         <h1></h1>
-        <div id="timeline">
-
-        </div>
+        <div id="timeline"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Business</th>
+                    <th>Platform/Initiative</th>
+                    <th>Program/Project</th>
+                    <th>Key</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>UME</td>
+                    <td></td>
+                    <td>Financial Aid</td>
+                    <td><span style="width:10px;background-color:#f796c8;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+                <tr>
+                    <td>UME</td>
+                    <td>iCAN</td>
+                    <td>Clinical Skills/Clinical Conditions</td>
+                    <td><span style="width:10px;background-color:#d796f7;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+                <tr>
+                    <td>UME</td>
+                    <td>VMed</td>
+                    <td>Student Experience</td>
+                    <td><span style="width:10px;background-color:#a696f7;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+                <tr>
+                    <td>UME</td>
+                    <td>VMed</td>
+                    <td>Staff Experience</td>
+                    <td><span style="width:10px;background-color:#96b8f7;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+                <tr>
+                    <td>UME</td>
+                    <td>VMed</td>
+                    <td>Faculty Experience</td>
+                    <td><span style="width:10px;background-color:#96e0f7;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+                <tr>
+                    <td>UME</td>
+                    <td></td>
+                    <td>Admissions</td>
+                    <td><span style="width:10px;background-color:#96f7d7;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+                <tr>
+                    <td>UME</td>
+                    <td></td>
+                    <td>Instituional Funding Plan (IFP)</td>
+                    <td><span style="width:10px;background-color:#96f7a0;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+                <tr>
+                    <td>Administrative Computing</td>
+                    <td>SOM Workflow</td>
+                    <td>Clinical Faculty Hiring</td>
+                    <td><span style="width:10px;background-color:#caf796;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+                <tr>
+                    <td>Administrative Computing</td>
+                    <td>SOM Workflow</td>
+                    <td>Research and Instructional Hiring</td>
+                    <td><span style="width:10px;background-color:#f0f796;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+                <tr>
+                    <td>Administrative Computing</td>
+                    <td>SOM Workflow</td>
+                    <td>Space Grants Survey</td>
+                    <td><span style="width:10px;background-color:#f7d596;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+                <tr>
+                    <td>Research</td>
+                    <td>SOM Workflow</td>
+                    <td>CR Connect</td>
+                    <td><span style="width:10px;background-color:#f7a696;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                </tr>
+            </tbody>
+        </table>
     </main>
     <footer></footer>
     <script type="text/javascript">
-      var plays = [
-        {
-          "play": "The Two Gentlemen of Verona", 
-          "date": "1589-1591",
-          "record": "Francis Meres'...",
-          "published": "First Folio (1623)",   
-          "performance": "adaptation by Benjamin Victor...",
-          "evidence": "The play contains..." 
-        }, { 
-          "play": "The Taming of the Shrew",     
-          "date": "1590-1594", 
-          "record": "possible version...", 
-          "published": "possible version...", 
-          "performance": "According to Philip Henslowe...",  
-          "evidence": "Kier Elam posits..."
-        }, { 
-          "play": "Henry VI, Part 2",
-          "date": "1590-1591", 
-          "record": "version of the...",   
-          "published": "version of the...",   
-          "performance": "although it is known...",         
-          "evidence": "It is known..." 
-        }
-      ];
 
-      var descTerms = [
-          { key: "record",      label: "First official record"},
-          { key: "published",   label: "First published"},
-          { key: "performance", label: "First recorded performance"},
-          { key: "evidence",    label: "Evidence"},
-      ];
-
-      var events = $.map(plays, function(play) {
-          var event = {};
-          event.title = play.play;
-          if (play.date.indexOf("-") !== -1) {
-              var daterange = play.date.split("-");
-              event.dates = [new Date(daterange[0], 0, 1), new Date(daterange[1], 11, 31)]
-          } else {
-              event.dates = [new Date(play.date, 0, 1), new Date(play.date, 11, 31)]
-          }
-          return event;
-      });
+        const events = [
+            {
+                dates: [new Date(2019, 0, 1), new Date(2019, 0, 4)],
+                title: "Robert Pastor",
+                attrs: {
+                    fill: "#96b8f7",
+                    stroke: "#96b8f7",
+                    text: "Robert Pastor"
+                }
+            },
+            {
+                dates: [new Date(2019, 0, 1), new Date(2019, 4, 17)],
+                title: "Michael Szul",
+                attrs: {
+                    fill: "#96b8f7",
+                    stroke: "#96b8f7",
+                    text: "Michael Szul"
+                }
+            },
+            {
+                dates: [new Date(2019, 0, 7), new Date(2019, 3, 15)],
+                title: "Michael Szul",
+                attrs: {
+                    fill: "#96b8f7",
+                    stroke: "#96b8f7",
+                    text: "Michael Szul"
+                }
+            },
+            {
+                dates: [new Date(2019, 5, 3), new Date(2019, 5, 14)],
+                title: "Michael Szul",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Michael Szul"
+                }
+            },
+            {
+                dates: [new Date(2019, 5, 17), new Date(2019, 7, 16)],
+                title: "Michael Szul",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Michael Szul"
+                }
+            },
+            {
+                dates: [new Date(2019, 0, 1), new Date(2019, 0, 31)],
+                title: "Ethan Preston",
+                attrs: {
+                    fill: "#d796f7",
+                    stroke: "#d796f7",
+                    text: "Ethan Preston"
+                }
+            },
+            {
+                dates: [new Date(2019, 0, 1), new Date(2019, 2, 15)],
+                title: "Ethan Preston",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Ethan Preston"
+                }
+            },
+            {
+                dates: [new Date(2019, 1, 18), new Date(2019, 3, 1)],
+                title: "Sara Elizabeth",
+                attrs: {
+                    fill: "#a696f7",
+                    stroke: "#a696f7",
+                    text: "Sara Elizabeth"
+                }
+            },
+            {
+                dates: [new Date(2019, 3, 15), new Date(2019, 7, 26)],
+                title: "Sara Elizabeth",
+                attrs: {
+                    fill: "#96b8f7",
+                    stroke: "#96b8f7",
+                    text: "Sara Elizabeth"
+                }
+            },
+            {
+                dates: [new Date(2019, 4, 20), new Date(2019, 9, 7)],
+                title: "Sara Elizabeth",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Sara Elizabeth"
+                }
+            },
+            {
+                dates: [new Date(2019, 10, 18), new Date(2020, 3, 17)],
+                title: "Sara Elizabeth",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Sara Elizabeth"
+                }
+            },
+            {
+                dates: [new Date(2019, 0, 28), new Date(2019, 1, 22)],
+                title: "Heather Nostrant",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Heather Nostrant"
+                }
+            },
+            {
+                dates: [new Date(2019, 1, 25), new Date(2019, 2, 22)],
+                title: "Heather Nostrant",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Heather Nostrant"
+                }
+            },
+            {
+                dates: [new Date(2019, 2, 25), new Date(2019, 3, 19)],
+                title: "Heather Nostrant",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Heather Nostrant"
+                }
+            },
+            {
+                dates: [new Date(2019, 3, 22), new Date(2019, 4, 17)],
+                title: "Heather Nostrant",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Heather Nostrant"
+                }
+            },
+            {
+                dates: [new Date(2019, 0, 1), new Date(2019, 5, 28)],
+                title: "Martin Orth",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Martin Orth"
+                }
+            },
+            {
+                dates: [new Date(2019, 6, 1), new Date(2019, 7, 30)],
+                title: "Martin Orth",
+                attrs: {
+                    fill: "#96e0f7",
+                    stroke: "#96e0f7",
+                    text: "Martin Orth"
+                }
+            },
+            {
+                dates: [new Date(2019, 0, 1), new Date(2019, 1, 1)],
+                title: "Tom Lynch",
+                attrs: {
+                    fill: "#f796c8",
+                    stroke: "#f796c8",
+                    text: "Tom Lynch"
+                }
+            },
+            {
+                dates: [new Date(2019, 1, 1), new Date(2019, 4, 17)],
+                title: "Tom Lynch",
+                attrs: {
+                    fill: "#f796c8",
+                    stroke: "#f796c8",
+                    text: "Tom Lynch"
+                }
+            },
+            {
+                dates: [new Date(2019, 5, 17), new Date(2019, 10, 15)],
+                title: "Tom Lynch",
+                attrs: {
+                    fill: "#f796c8",
+                    stroke: "#f796c8",
+                    text: "Tom Lynch"
+                }
+            }
+        ];
 
       var timeline = new Chronoline($("#timeline")[0], events, {
           animated: true,
-          defaultStartDate: new Date(1589, 0, 1),
+          defaultStartDate: new Date(2019, 0, 1),
           draggable: true,
           hashInterval: function(date) {
-              return date.getDate() === 1;
+            return date.getDate() === 1;
           },
           labelInterval: function(date) {
-              return date.getMonth() === 0 && date.getDate() === 1;
+            return date.getDate() === 1;
           },
-          labelFormat: "%Y",
-          markToday: false,
+          eventLabels: {
+            "font-size": 12,
+            fill: "#000",
+            "text-anchor": "start"
+          },
+          labelFormat: "%b %Y",
+          markToday: true,
           scrollLeft: function(date) {
               return new Date(date.getFullYear() - 1, date.getMonth(), date.getDate());
           },
@@ -97,8 +331,9 @@
           subLabel: null,
           subSubLabel: null,
           timelinePadding: DAY_IN_MILLISECONDS * 366 / 4,
-          tooltips: true,
-          visibleSpan: DAY_IN_MILLISECONDS * 366 * 5
+          tooltips: false,
+          visibleSpan: DAY_IN_MILLISECONDS * 366,
+          eventHeight: 20
       });
 
     </script>

@@ -4,6 +4,7 @@
   "description": "Resource managementtool",
   "main": "./index.html",
   "scripts": {
+    "now-start": "serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,8 +23,8 @@
   "homepage": "https://github.com/szul/Lightray#readme",
   "dependencies": {
     "chronoline": "^0.1.6",
-    "metronical.metron": "git+https://github.com/metronical/metron.git#v3",
     "milligram": "^1.3.0",
-    "restify": "^7.3.0"
+    "restify": "^7.3.0",
+    "serve": "^10.1.1"
   }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "x.lightray",
-  "version": "0.0.1",
-  "description": "Resource managementtool",
+  "name": "Lightray",
+  "version": "0.1.0",
+  "description": "Resource management tool",
   "main": "./index.html",
   "scripts": {
     "now-start": "serve",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/szul/Lightray.git"
+    "url": "git+https://github.com/octobercodes/lightray.git"
   },
   "keywords": [
     "resource management",
@@ -18,9 +18,9 @@
   "author": "Michael Szul <michael@szul.us>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/szul/Lightray/issues"
+    "url": "https://github.com/octobercodes/lightray/issues"
   },
-  "homepage": "https://github.com/szul/Lightray#readme",
+  "homepage": "https://github.com/octobercodes/lightray#readme",
   "dependencies": {
     "chronoline": "^0.1.6",
     "metronical.metron": "^2.9.8",

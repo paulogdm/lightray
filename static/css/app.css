@@ -1,0 +1,41 @@
+main {
+    text-align: left;
+}
+section {
+    margin: 3rem 1.4rem 0 1.4rem;
+    width: 100%;
+}
+table {
+    width: 100%;
+}
+th, td {
+    font-size: 1.4rem;
+}
+a {
+    text-decoration: underline;
+    cursor: pointer;
+}
+a:hover {
+    text-decoration: none;
+}
+nav {
+    clear: both;
+}
+nav ul {
+    list-style-type: none;
+}
+nav ul li {
+    float: left;
+    margin: 1rem 2rem 1rem auto;
+}
+[data-m-segment="pivot-item"] {
+    overflow: auto;
+    width: 100%;
+}
+@media (min-width: 80.0rem) {
+    section {
+        margin: 3rem auto;
+        width: 50%;
+    }
+    
+}

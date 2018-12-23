@@ -4,17 +4,15 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <title></title>
+    <meta name="keywords" content="lightray, resource management, work intake, project timeline, resource timeline" />
+    <meta name="description" content="Lightray is a resource management tool for establishing better work intake by understanding your resource and project timelines." />
+    <title>Lightray : A Resource Management Tool</title>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Exo" />
     <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css" />
     <link rel="stylesheet" href="./node_modules/milligram/dist/milligram.min.css" />
     <link rel="stylesheet" href="./node_modules/metronical.metron/dist/css/app.css" />
-
     <link rel="stylesheet" href="./static/chronoline.css" />
-
     <link rel="stylesheet" href="./static/css/app.css" />
 
     <script type="text/javascript" src="./node_modules/rsvp/dist/rsvp.js"></script>
@@ -26,9 +24,15 @@
 
   </head>
   <body data-m-root="" data-m-page="lightray.app">
-    <header></header>
+    <header>
+        <svg width="10%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+            <rect x="0" y="0" width="100" height="100" fill="#ff942b"/>
+        </svg>
+        <span>
+            <a href="/" id="name">LIGHTRAY</a>
+        </span>
+    </header>
     <main>
-        <h1></h1>
         <div id="timeline"></div>
         <section data-m-type="pivot" data-m-page="Details">
             <div data-m-segment="pivot-item" data-m-page="Capacity">

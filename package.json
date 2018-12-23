@@ -1,7 +1,7 @@
 {
-  "name": "Lightray",
+  "name": "lightray",
   "version": "0.1.0",
-  "description": "Resource management tool",
+  "description": "Lightray is a resource management tool for establishing better work intake by understanding your resource and project timelines.",
   "main": "./index.html",
   "scripts": {
     "now-start": "serve",
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/octobercodes/lightray#readme",
   "dependencies": {
     "chronoline": "^0.1.6",
+    "jsonwebtoken": "^8.4.0",
     "metronical.metron": "^2.9.8",
     "milligram": "^1.3.0",
     "restify": "^7.3.0",

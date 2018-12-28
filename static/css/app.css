@@ -16,9 +16,17 @@ header span {
     position: relative;
     top: -0.8rem;
 }
-header span.login {
+header span.auth {
     float: right;
-    margin-top: 1rem;
+    position: relative;
+    top: -1.3rem;
+}
+header span > img {
+    width: 3.5rem;
+    border-radius: 2rem;
+    margin-left: 1rem;
+    position: relative;
+    top: 1rem;
 }
 main {
     text-align: left;
@@ -53,6 +61,16 @@ nav ul li {
 [data-m-segment="pivot-item"] {
     overflow: auto;
     width: 100%;
+}
+#login {
+    margin: 0 1rem 0 0;
+    position: relative;
+    top: 1.8rem;
+    display: none;
+}
+#logout,
+#profile {
+    display: none;
 }
 #name {
     margin-right: 3rem;

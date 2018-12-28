@@ -15,14 +15,15 @@
     <link rel="stylesheet" href="./static/chronoline.css" />
     <link rel="stylesheet" href="./static/css/app.css" />
 
+    <script type="text/javascript" src="./node_modules/jwt-decode/build/jwt-decode.js"></script>
     <script type="text/javascript" src="./node_modules/auth0-js/build/auth0.js"></script>
     <script type="text/javascript" src="./node_modules/rsvp/dist/rsvp.js"></script>
     <script type="text/javascript" src="./node_modules/metronical.metron/dist/gen/metron.js"></script>
     <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./node_modules/qtip2/jquery.qtip.min.js"></script>
     <script type="text/javascript" src="./node_modules/raphael/raphael.min.js"></script>
-    <script type="text/javascript" src="./static/chronoline.js"></script>
 
+    <script type="text/javascript" src="./static/chronoline.js"></script>
     <script type="text/javascript" src="./static/js/auth.js"></script>
 
   </head>
@@ -35,8 +36,12 @@
             <span>
                 <a href="/" id="name">LIGHTRAY</a>
             </span>
-            <span class="login">
+            <span class="auth">
                 <a id="login">LOGIN</a>
+            </span>
+            <span class="auth">
+                <a id="logout">LOGOUT</a>
+                <img id="profile" />
             </span>
         </nav>
     </header>

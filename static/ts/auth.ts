@@ -1,21 +1,28 @@
 declare const auth0: any;
+declare const jwt_decode: any;
 
 window.addEventListener('load', () => {
 
+    const btnLogin: HTMLElement = document.querySelector('#login');
+    const btnLogout: HTMLElement = document.querySelector('#logout');
+    const profileImg: HTMLImageElement = document.querySelector('#profile');
+
+    function getJWTProp(name: string): string {
+        return jwt_decode(localStorage.getItem("id_token"))[name];
+    }
+
     function handleAuthentication(): void {
-        webAuth.parseHash(function (err, authResult) {
+        webAuth.parseHash((err: string, authResult: any) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 window.location.hash = '';
                 setSession(authResult);
-            } else if (err) {
-                console.log(err);
-                alert(`Error: ${err.error}. Check the console for further details.`);
             }
+            toggleAuthentication();
         });
     }
     
     function setSession(authResult: any): void {
-        const expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
+        const expiresAt: string = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
         localStorage.setItem('access_token', authResult.accessToken);
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('expires_at', expiresAt);
@@ -28,23 +35,49 @@ window.addEventListener('load', () => {
     }
     
     function isAuthenticated(): boolean {
-        var expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-        return new Date().getTime() < expiresAt;
+        try {
+            const expiresAt: number = JSON.parse(localStorage.getItem('expires_at'));
+            return new Date().getTime() < expiresAt;
+        }
+        catch(e) {
+            return false;
+        }
+    }
+
+    function toggleAuthentication(): void {
+        if(isAuthenticated()) {
+            btnLogin.style.display = "none";
+            btnLogout.style.display = "inline";
+            profileImg.src = getJWTProp("picture");
+            profileImg.style.display = "inline";
+        }
+        else {
+            btnLogin.style.display = "inline";
+            btnLogout.style.display = "none";
+            profileImg.src = null;
+            profileImg.style.display = "none";
+        }
     }
 
     const webAuth = new auth0.WebAuth({
         domain: 'octobercodes.auth0.com',
         clientID: 'MSlYpUbSWbg01DPt8H4A0MmWNzVzjSy9',
         responseType: 'token id_token',
-        scope: 'openid',
+        scope: 'openid email profile',
         redirectUri: window.location.href
     });
 
-    const loginBtn = document.getElementById('login');
-
-    loginBtn.addEventListener('click', (e) => {
+    btnLogin.addEventListener('click', (e) => {
         e.preventDefault();
         webAuth.authorize();
     });
+
+    btnLogout.addEventListener('click', (e) => {
+        e.preventDefault();
+        logout();
+        toggleAuthentication();
+    });
+
+    handleAuthentication();
 
 });

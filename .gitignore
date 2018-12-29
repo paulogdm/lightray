@@ -49,5 +49,6 @@ paket-files/
 node_modules/
 
 iisexpress.json
+.env
 api/
 static/js/

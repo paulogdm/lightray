@@ -24,13 +24,16 @@
   },
   "homepage": "https://github.com/octobercodes/lightray#readme",
   "dependencies": {
+    "@types/restify": "^7.2.6",
     "auth0-js": "^9.8.2",
     "chronoline": "^0.1.6",
+    "dotenv": "^6.2.0",
     "jsonwebtoken": "^8.4.0",
     "jwt-decode": "^2.2.0",
     "metronical.metron": "^2.9.8",
     "milligram": "^1.3.0",
     "restify": "^7.3.0",
+    "restify-jwt-community": "^1.0.9",
     "rsvp": "^4.8.4",
     "serve": "^10.1.1"
   }

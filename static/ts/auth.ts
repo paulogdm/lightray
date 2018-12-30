@@ -11,11 +11,46 @@ window.addEventListener('load', () => {
         return jwt_decode(localStorage.getItem("id_token"))[name];
     }
 
-    function handleAuthentication(): void {
-        webAuth.parseHash((err: string, authResult: any) => {
+    function verify(accessToken: string, idToken: string, email: string): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            metron.web.post(
+                "http://localhost:3000/api/auth",
+                {
+                    accessToken: accessToken,
+                    idToken: idToken,
+                    email: email
+                },
+                "application/x-www-form-urlencoded; charset=UTF-8",
+                "json",
+                (result: any) => {
+                    if(result) {
+                        resolve(result.isValid);
+                    }
+                    else {
+                        reject("An error occurred while validation your authentication token");
+                    }
+                },
+                (text: string) => {
+                    reject(`An error occurred while validation your authentication token: ${text}`);
+                },
+                null,
+                {
+                    Authorization: `Bearer ${idToken}`
+                });
+        });
+    }
+
+     function handleAuthentication(): void {
+        webAuth.parseHash(async (err: string, authResult: any) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 window.location.hash = '';
-                setSession(authResult);
+                const isValid:boolean = await verify(authResult.accessToken, authResult.idToken, getJWTProp("email"));
+                if(isValid) {
+                    setSession(authResult);
+                }
+                else {
+                    console.log("Authentication token is not valid.");
+                }
             }
             toggleAuthentication();
         });

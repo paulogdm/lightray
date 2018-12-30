@@ -1,5 +1,5 @@
 {
-    "config.baseURL": "http://localhost:43909",
+    "config.baseURL": "http://localhost:3000",
     "config.api.dir": "api",
     "config.api.extension": ""
 }

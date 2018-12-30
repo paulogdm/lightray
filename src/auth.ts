@@ -1,5 +1,8 @@
+import * as jwt from "jsonwebtoken";
+
 function verify(idToken: string): boolean {
-    //is token value? true/false
+    //jwt.verify(idToken);
+    //https://octobercodes.auth0.com/.well-known/jwks.json
     return true;
 }
 

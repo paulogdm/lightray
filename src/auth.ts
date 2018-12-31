@@ -1,15 +1,27 @@
 import * as jwt from "jsonwebtoken";
+import * as jwt_decode from "jwt-decode";
 
 function verify(idToken: string): boolean {
-    //jwt.verify(idToken);
-    //https://octobercodes.auth0.com/.well-known/jwks.json
+    const decoded = jwt_decode(idToken);
+    const jwks = require("../data/jwks.json");
+    try {
+        jwt.verify(idToken, jwks.keys[0].x5c[0],
+            {
+                algorithms: jwks.keys[0].alg,
+                issuer: decoded.iss,
+                audience: decoded.aud
+            }
+        );
+    }
+    catch(e) {
+        return false;
+    }
     return true;
 }
 
 export function auth(accessToken: string, idToken: string, email: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
         try {
-            //is the user in the system? true/false
             if(verify(idToken)) {
                 resolve(true);
             }

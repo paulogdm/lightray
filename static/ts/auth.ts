@@ -14,7 +14,7 @@ window.addEventListener('load', () => {
     function verify(accessToken: string, idToken: string, email: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             metron.web.post(
-                "http://localhost:3000/api/auth",
+                "http://localhost:3000/api/auth", //Don't hardcode this
                 {
                     accessToken: accessToken,
                     idToken: idToken,

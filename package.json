@@ -27,6 +27,7 @@
     "@types/jsonwebtoken": "^8.3.0",
     "@types/restify": "^7.2.6",
     "auth0-js": "^9.8.2",
+    "azure-storage": "^2.10.2",
     "chronoline": "^0.1.6",
     "dotenv": "^6.2.0",
     "jsonwebtoken": "^8.4.0",

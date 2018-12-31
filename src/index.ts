@@ -1,6 +1,8 @@
 import * as restify from "restify";
 import { config } from "dotenv";
+import { User } from "./schema";
 import { auth } from "./auth";
+import { checkOrCreateUser } from "./user";
 
 config();
 
@@ -13,7 +15,13 @@ server.post('/api/auth', async (req, res, next) => {
     const { accessToken, idToken, email } = req.body;
     const isValid = await auth(accessToken, idToken, email);
     if (isValid) {
-        res.send({ isValid: isValid });
+        const user: User = await checkOrCreateUser(accessToken, email);
+        res.send(
+            {
+                isValid: isValid,
+                user: user
+            }
+        );
     }
 });
 

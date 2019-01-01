@@ -15,7 +15,7 @@ server.post('/api/auth', async (req, res, next) => {
     const { accessToken, idToken, email } = req.body;
     const isValid = await auth(accessToken, idToken, email);
     if (isValid) {
-        const user: User = await checkOrCreateUser(accessToken, email);
+        const user: User = await checkOrCreateUser(accessToken, idToken, email);
         res.send(
             {
                 isValid: isValid,

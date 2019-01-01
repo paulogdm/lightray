@@ -9,6 +9,7 @@ export function createTableServiceAsync(storageAccountOrConnectionString: string
         createTableIfNotExistsAsync: promisify(tableService, tableService.createTableIfNotExists),
         deleteTableIfExistsAsync: promisify(tableService, tableService.deleteTableIfExists),
         retrieveEntityAsync: promisify(tableService, tableService.retrieveEntity),
+        queryEntitiesAsync: promisify(tableService, tableService.queryEntities),
         doesTableExistAsync: promisify(tableService, tableService.doesTableExist),
         insertOrReplaceEntityAsync: promisify(tableService, tableService.insertOrReplaceEntity),
         replaceEntityAsync: promisify(tableService, tableService.replaceEntity),

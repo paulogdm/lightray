@@ -8,8 +8,8 @@ function verify(idToken: string): boolean {
         jwt.verify(idToken, jwks.keys[0].x5c[0],
             {
                 algorithms: jwks.keys[0].alg,
-                issuer: decoded.iss,
-                audience: decoded.aud
+                issuer: (<any>decoded).iss,
+                audience: (<any>decoded).aud
             }
         );
     }

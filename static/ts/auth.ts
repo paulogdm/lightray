@@ -27,11 +27,11 @@ window.addEventListener('load', () => {
                         resolve(result.isValid);
                     }
                     else {
-                        reject("An error occurred while validation your authentication token");
+                        reject(false);
                     }
                 },
                 (text: string) => {
-                    reject(`An error occurred while validation your authentication token: ${text}`);
+                    reject(false);
                 },
                 null,
                 {
@@ -44,7 +44,7 @@ window.addEventListener('load', () => {
         webAuth.parseHash(async (err: string, authResult: any) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 window.location.hash = '';
-                const isValid:boolean = await verify(authResult.accessToken, authResult.idToken, getJWTProp("email"));
+                const isValid: boolean = await verify(authResult.accessToken, authResult.idToken, getJWTProp("email"));
                 if(isValid) {
                     setSession(authResult);
                 }

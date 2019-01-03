@@ -1,6 +1,6 @@
 import * as azure from "azure-storage";
-import { TableServiceAsync, User } from "./schema";
-import { createTableServiceAsync } from "./storage";
+import { TableServiceAsync, User } from "../schema";
+import { createTableServiceAsync } from "../storage";
 import * as uuidv1 from "uuid/v1";
 import * as jwt_decode from "jwt-decode";
 
@@ -24,7 +24,7 @@ export async function checkOrCreateUser(accessToken: string, idToken: string, em
             RowKey: e.String(uuidv1()),
             accessToken: accessToken,
             email: email,
-            name: jwt_decode(idToken).name
+            name: (<any>jwt_decode(idToken)).name
         };
         try {
             const inserted = await ats.insertOrReplaceEntityAsync("user", user, { echoContent: true });
@@ -33,7 +33,7 @@ export async function checkOrCreateUser(accessToken: string, idToken: string, em
                     key: (<User><any>inserted).PartitionKey,
                     accessToken: accessToken,
                     email: email,
-                    name: jwt_decode(idToken).name
+                    name: (<any>jwt_decode(idToken)).name
                 }
             );
         }

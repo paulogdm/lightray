@@ -1,3 +1,4 @@
+import * as restify from "restify";
 import * as jwt from "jsonwebtoken";
 import * as jwt_decode from "jwt-decode";
 
@@ -19,7 +20,7 @@ function verify(idToken: string): boolean {
     return true;
 }
 
-export function auth(accessToken: string, idToken: string, email: string): Promise<boolean> {
+export function auth(idToken: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
         try {
             if(verify(idToken)) {
@@ -33,4 +34,10 @@ export function auth(accessToken: string, idToken: string, email: string): Promi
             reject(e);
         }
     });
+}
+
+export function getUser(req: restify.Request): string {
+    const jwt: string = req.headers.authorization.split(" ")[1];
+    const decoded = jwt_decode(jwt);
+    return (<any>decoded).email;
 }

@@ -1,8 +1,8 @@
 import * as restify from "restify";
 import { config } from "dotenv";
 import { User } from "./schema";
-import { auth } from "./auth";
-import { checkOrCreateUser } from "./user";
+import { auth, getUser } from "./auth";
+import { checkOrCreateUser } from "./models/user";
 import * as jwt_decode from "jwt-decode";
 
 config();
@@ -11,27 +11,33 @@ const server: restify.Server = restify.createServer();
 
 server.use(restify.plugins.queryParser());
 server.use(restify.plugins.bodyParser());
+server.use(verifyAuth);
 
-function verifyAuth(req: restify.Request, res: restify.Response, next: Function): void {
-    try {
-        const jwt: string = req.headers.authorization.split(" ")[1];
-        //verify...
-        const decoded = jwt_decode(jwt);
-        if(decoded != null && (<any>decoded).email != null) {
-            next();
+async function verifyAuth(req: restify.Request, res: restify.Response, next: Function): Promise<void> {
+    if(req.getPath() !== "/api/auth") {
+        try {
+            const jwt: string = req.headers.authorization.split(" ")[1];
+            const isValid: boolean = await auth(jwt);
+            if(isValid) {
+                const decoded = jwt_decode(jwt);
+                if(decoded == null || (<any>decoded).email == null) {
+                    next(new Error("Authentication failed."));
+                }
+            }
+            else {
+                next(new Error("Validation failed."));
+            }
         }
-        else {
-            next(new Error("Authentication failed."));
+        catch(e) {
+            next(new Error(e));
         }
     }
-    catch(e) {
-        next(new Error(e));
-    }
+    next();
 }
 
-server.post("/api/auth", async (req: restify.Request, res: restify.Response, next: Function) => {
+server.post("/api/auth", async (req: restify.Request, res: restify.Response) => {
     const { accessToken, idToken, email } = req.body;
-    const isValid = await auth(accessToken, idToken, email);
+    const isValid: boolean = await auth(idToken);
     if (isValid) {
         const user: User = await checkOrCreateUser(accessToken, idToken, email);
         res.send(
@@ -41,6 +47,11 @@ server.post("/api/auth", async (req: restify.Request, res: restify.Response, nex
             }
         );
     }
+});
+
+server.get("/api/event", (req: restify.Request, res: restify.Response) => {
+    const email = getUser(req);
+
 });
 
 server.listen(3000, () => {

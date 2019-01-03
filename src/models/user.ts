@@ -22,18 +22,18 @@ export async function checkOrCreateUser(accessToken: string, idToken: string, em
         const user = {
             PartitionKey: e.String(`${email}`),
             RowKey: e.String(uuidv1()),
-            accessToken: accessToken,
-            email: email,
-            name: (<any>jwt_decode(idToken)).name
+            AccessToken: accessToken,
+            Email: email,
+            Name: (<any>jwt_decode(idToken)).name
         };
         try {
             const inserted = await ats.insertOrReplaceEntityAsync("user", user, { echoContent: true });
             return Promise.resolve(
                 {
-                    key: (<User><any>inserted).PartitionKey,
-                    accessToken: accessToken,
-                    email: email,
-                    name: (<any>jwt_decode(idToken)).name
+                    PartitionKey: (<User><any>inserted).PartitionKey,
+                    AccessToken: accessToken,
+                    Email: email,
+                    Name: (<any>jwt_decode(idToken)).name
                 }
             );
         }

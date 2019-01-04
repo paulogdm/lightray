@@ -4,7 +4,6 @@ import { TableServiceAsync } from "./schema";
 
 export function createTableServiceAsync(storageAccountOrConnectionString: string, storageAccessKey: string): TableServiceAsync {
     const tableService = azure.createTableService(storageAccountOrConnectionString, storageAccessKey);
-
     return {
         createTableIfNotExistsAsync: promisify(tableService, tableService.createTableIfNotExists),
         deleteTableIfExistsAsync: promisify(tableService, tableService.deleteTableIfExists),
@@ -15,4 +14,14 @@ export function createTableServiceAsync(storageAccountOrConnectionString: string
         replaceEntityAsync: promisify(tableService, tableService.replaceEntity),
         deleteEntityAsync: promisify(tableService, tableService.deleteEntity)
     } as TableServiceAsync;
+}
+
+export async function getOrCreateTable(table: string): Promise<TableServiceAsync> {
+    const ats: TableServiceAsync = createTableServiceAsync(process.env.AZURE_STORAGE_ACCOUNT, process.env.AZURE_STORAGE_ACCESS_KEY);
+    try {
+        await ats.createTableIfNotExistsAsync(table);
+    }
+    catch(e) {
+        return Promise.reject(`Error creating table: ${table}.`);
+    }
 }

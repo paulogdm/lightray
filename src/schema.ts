@@ -13,6 +13,7 @@ export interface TableServiceAsync extends azure.TableService {
 
 export interface User {
     PartitionKey?: string;
+    RowKey?: string;
     AccessToken: string;
     Email: string;
     Name: string;
@@ -21,6 +22,8 @@ export interface User {
 }
 
 export interface Project {
+    PartitionKey?: string;
+    RowKey?: string;
     Business?: string;
     Platform?: string;
     Name: string;
@@ -31,11 +34,14 @@ export interface Project {
 
 export interface Team {
     PartitionKey?: string;
+    RowKey?: string;
     Name: string;
     Users?: string[];
 }
 
 export interface Person {
+    PartitionKey?: string;
+    RowKey?: string;
     Name: string;
     Title: string;
     Position: string;
@@ -44,6 +50,7 @@ export interface Person {
 
 export interface Event {
     PartitionKey?: string;
+    RowKey?: string;
     Name: string;
     Project: string;
     Person: string;

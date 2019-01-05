@@ -24,7 +24,7 @@ export async function saveSkill(email: string, skill: string): Promise<Skill> {
         const v: User = users.find((e) => {
             return (<User><any>e).Email == email
         });
-        if(v === undefined) {
+        if(v === undefined) { //User wasn't in Skill
             if(!saveUserInSkill(ats, <Skill>sk, email)) {
                 throw new Error(`Could not save ${email} in ${skill}.`);
             };
@@ -54,17 +54,30 @@ export async function saveSkill(email: string, skill: string): Promise<Skill> {
     }
 }
 
-function saveSkillInUser(ats: TableServiceAsync, skill: string, email: string): boolean {
-    //Save skill in user
-    return false;
+async function saveSkillInUser(ats: TableServiceAsync, skill: string, email: string): Promise<boolean> {
+    const user: User = await getUser(email);
+    if(user != null) {
+        //Save skill in user.
+    }
+    return Promise.resolve(false);
 }
 
 async function saveUserInSkill(ats: TableServiceAsync, skill: Skill, email: string): Promise<boolean> {
     const user: User = await getUser(email);
     if(user != null) {
-        const users: User[] = JSON.parse((<any>skill).Users);
-        users.push(user);
-        //Save skill
+        const users: string[] = JSON.parse((<any>skill).Users);
+        users.push(user.Email);
+        skill.Users = users;
+        try {
+            const inserted = await ats.insertOrReplaceEntityAsync("skill", skill);
+            if(!inserted[".metadata"]) {
+                return Promise.resolve(false);
+            }
+            return Promise.resolve(true);
+        }
+        catch(e) {
+            return Promise.reject(e);
+        }
     }
     return Promise.resolve(false);
 }

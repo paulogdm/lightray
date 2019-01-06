@@ -1,7 +1,7 @@
 import * as azure from "azure-storage";
 import { TableServiceAsync, Skill, User } from "../schema";
 import { getUser } from "./user";
-import { getOrCreateTable } from "../storage";
+import { getOrCreateTable, insertOrReplaceItem } from "../storage";
 import * as uuidv1 from "uuid/v1";
 
 export async function getSkills(email?: string): Promise<Skill[]> {
@@ -15,7 +15,7 @@ export async function getSkills(email?: string): Promise<Skill[]> {
 }
 
 export async function saveSkill(email: string, skill: string): Promise<Skill> {
-    const ats: TableServiceAsync = await getOrCreateTable("event");
+    const ats: TableServiceAsync = await getOrCreateTable("skill");
     const query = new azure.TableQuery().where('PartitionKey eq ?', skill);
     const r = await ats.queryEntitiesAsync("skill", query);
     if(r.entries != null && r.entries.length > 0) {
@@ -57,7 +57,10 @@ export async function saveSkill(email: string, skill: string): Promise<Skill> {
 async function saveSkillInUser(ats: TableServiceAsync, skill: string, email: string): Promise<boolean> {
     const user: User = await getUser(email);
     if(user != null) {
-        //Save skill in user.
+        const skills: string[] = user.Skills;
+        skills.push(skill);
+        user.Skills = skills;
+        return await insertOrReplaceItem<User>(ats, "user", user);
     }
     return Promise.resolve(false);
 }
@@ -68,16 +71,7 @@ async function saveUserInSkill(ats: TableServiceAsync, skill: Skill, email: stri
         const users: string[] = JSON.parse((<any>skill).Users);
         users.push(user.Email);
         skill.Users = users;
-        try {
-            const inserted = await ats.insertOrReplaceEntityAsync("skill", skill);
-            if(!inserted[".metadata"]) {
-                return Promise.resolve(false);
-            }
-            return Promise.resolve(true);
-        }
-        catch(e) {
-            return Promise.reject(e);
-        }
+        return await insertOrReplaceItem<Skill>(ats, "skill", skill);
     }
     return Promise.resolve(false);
 }

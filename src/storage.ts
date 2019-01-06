@@ -25,3 +25,16 @@ export async function getOrCreateTable(table: string): Promise<TableServiceAsync
         return Promise.reject(`Error creating table: ${table}.`);
     }
 }
+
+export async function insertOrReplaceItem<T>(ats: TableServiceAsync, tableName: string, item: T): Promise<boolean> {
+    try {
+        const inserted = await ats.insertOrReplaceEntityAsync(tableName, item);
+        if(!inserted[".metadata"]) {
+            return Promise.resolve(false);
+        }
+        return Promise.resolve(true);
+    }
+    catch(e) {
+        return Promise.reject(e);
+    }
+}

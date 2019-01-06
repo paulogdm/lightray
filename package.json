@@ -42,6 +42,7 @@
     "restify-jwt-community": "^1.0.9",
     "rsvp": "^4.8.4",
     "serve": "^10.1.1",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "webpack": "^4.28.3"
   }
 }

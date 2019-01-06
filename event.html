@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="lightray, resource management, skills inventory, work intake, project timeline, resource timeline, resource planning" />
+    <meta name="description" content="Lightray is a resource management and skills inventory tool for establishing better work intake by understanding your resource and project timelines." />
+    <title>Lightray : A Resource Management and Skills Inventory Tool</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Exo" />
+    <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css" />
+    <link rel="stylesheet" href="./node_modules/milligram/dist/milligram.min.css" />
+    <link rel="stylesheet" href="./node_modules/metronical.metron/dist/css/app.css" />
+    <link rel="stylesheet" href="./static/chronoline.css" />
+    <link rel="stylesheet" href="./static/css/app.css" />
+
+    <script type="text/javascript" src="./node_modules/jwt-decode/build/jwt-decode.js"></script>
+    <script type="text/javascript" src="./node_modules/auth0-js/build/auth0.js"></script>
+    <script type="text/javascript" src="./node_modules/rsvp/dist/rsvp.js"></script>
+    <script type="text/javascript" src="./node_modules/metronical.metron/dist/gen/metron.js"></script>
+    <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="./node_modules/qtip2/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="./node_modules/raphael/raphael.min.js"></script>
+
+    <script type="text/javascript" src="./static/chronoline.js"></script>
+    <script type="text/javascript" src="./static/js/index.js"></script>
+    <script type="text/javascript" src="./static/js/auth.js"></script>
+
+  </head>
+  <body data-m-root="" data-m-page="lightray.app">
+    <header>
+        <svg width="10%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+            <rect x="0" y="0" width="100" height="100" fill="#ff942b"/>
+        </svg>
+        <nav>
+            <span>
+                <a href="/" id="name">LIGHTRAY</a>
+            </span>
+            <span class="auth">
+                <a id="login">LOGIN</a>
+            </span>
+            <span class="auth">
+                <a id="logout">LOGOUT</a>
+                <img id="profile" />
+            </span>
+        </nav>
+    </header>
+    <main>
+        <div id="timeline"></div>
+        <section data-m-type="pivot" data-m-page="Details">
+            <div data-m-segment="pivot-item" data-m-page="Capacity">
+                <nav>
+                    <ul>
+                        <li><a data-m-pivot="Capacity">Capacity</a></li>
+                        <li><a data-m-pivot="Key">Key</a></li>
+                    </ul>
+                </nav>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Platform</th>
+                            <th>Q1 2019</th>
+                            <th>Q2 2019</th>
+                            <th>Q3 2019</th>
+                            <th>Q4 2019</th>
+                            <th>Q1 2020</th>
+                            <th>Q2 2020</th>
+                            <th>Q3 2020</th>
+                            <th>Q4 2020</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Business Systems Analyst</td>
+                            <td>iCAN</td>
+                            <td>25%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>VMed</td>
+                            <td>75%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Consulting Web Developer</td>
+                            <td>VMed</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Engineer</td>
+                            <td>iCAN</td>
+                            <td>33%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>VMed</td>
+                            <td>66%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Manager</td>
+                            <td>VMed</td>
+                            <td>50%</td>
+                            <td>50%</td>
+                            <td>50%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>None</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>25%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="10">
+                                <small>* 50% of Manager time alloted to managerial and operational tasks.</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Principal Engineer</td>
+                            <td>VMed</td>
+                            <td>75%</td>
+                            <td>75%</td>
+                            <td>75%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="10">
+                                <small>* 25% of Principal Engineer time alloted to managerial and operational tasks, including supporting and directing development team.</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Software Engineer #1</td>
+                            <td>None</td>
+                            <td>75%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>VMed</td>
+                            <td>25%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Software Engineer #2</td>
+                            <td>VMed</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Temp. QA Tester</td>
+                            <td>VMed</td>
+                            <td></td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="10"></td>
+                        </tr>
+                        <tr>
+                            <td>User Experience Analyst</td>
+                            <td>VMed</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Web Developer</td>
+                            <td>iCAN</td>
+                            <td>100%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>VMed</td>
+                            <td></td>
+                            <td></td>
+                            <td>100%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div data-m-segment="pivot-item" data-m-page="Key">
+                <nav>
+                    <ul>
+                        <li><a data-m-pivot="Capacity">Capacity</a></li>
+                        <li><a data-m-pivot="Key">Key</a></li>
+                    </ul>
+                </nav>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Business</th>
+                            <th>Platform/Initiative</th>
+                            <th>Program/Project</th>
+                            <th>Key</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>UME</td>
+                            <td>Operations</td>
+                            <td>Financial Aid</td>
+                            <td><span style="width:10px;background-color:#f796c8;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>UME</td>
+                            <td>iCAN</td>
+                            <td>Clinical Skills/Clinical Conditions</td>
+                            <td><span style="width:10px;background-color:#d796f7;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>UME</td>
+                            <td>VMed</td>
+                            <td>Student Experience</td>
+                            <td><span style="width:10px;background-color:#a696f7;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>UME</td>
+                            <td>VMed</td>
+                            <td>Staff Experience</td>
+                            <td><span style="width:10px;background-color:#96b8f7;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>UME</td>
+                            <td>VMed</td>
+                            <td>Faculty Experience</td>
+                            <td><span style="width:10px;background-color:#96e0f7;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>UME</td>
+                            <td>VMed</td>
+                            <td>Supporting Applications</td>
+                            <td><span style="width:10px;background-color:#3a8773;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>UME</td>
+                            <td>Operations</td>
+                            <td>Admissions</td>
+                            <td><span style="width:10px;background-color:#96f7d7;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>UME</td>
+                            <td>Operations</td>
+                            <td>Instituional Funding Plan (IFP)</td>
+                            <td><span style="width:10px;background-color:#96f7a0;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Administrative Computing</td>
+                            <td>SOM Workflow</td>
+                            <td>Clinical Faculty Hiring</td>
+                            <td><span style="width:10px;background-color:#caf796;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Administrative Computing</td>
+                            <td>SOM Workflow</td>
+                            <td>Research and Instructional Hiring</td>
+                            <td><span style="width:10px;background-color:#f0f796;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Administrative Computing</td>
+                            <td>SOM Workflow</td>
+                            <td>Space Grants Survey</td>
+                            <td><span style="width:10px;background-color:#f7d596;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Research</td>
+                            <td>SOM Workflow</td>
+                            <td>CR Connect</td>
+                            <td><span style="width:10px;background-color:#f7a696;">&#160;&#160;&#160;&#160;&#160;</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div data-m-segment="pivot-item" data-m-page="Form">
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+  </body>
+</html>

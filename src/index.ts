@@ -1,8 +1,9 @@
 import * as restify from "restify";
 import { config } from "dotenv";
-import { User } from "./schema";
+import { User, Event } from "./schema";
 import { auth, getUser } from "./auth";
 import { checkOrCreateUser } from "./models/user";
+import { getEvents, saveEvent } from "./models/event";
 import * as jwt_decode from "jwt-decode";
 
 config();
@@ -14,7 +15,7 @@ server.use(restify.plugins.bodyParser());
 server.use(verifyAuth);
 
 async function verifyAuth(req: restify.Request, res: restify.Response, next: Function): Promise<void> {
-    if(req.getPath() !== "/api/auth") {
+    if(req.getPath() !== "/api/auth" || process.env.ENV !== "DEV") {
         try {
             const jwt: string = req.headers.authorization.split(" ")[1];
             const isValid: boolean = await auth(jwt);
@@ -49,9 +50,16 @@ server.post("/api/auth", async (req: restify.Request, res: restify.Response) => 
     }
 });
 
-server.get("/api/event", (req: restify.Request, res: restify.Response) => {
+server.get("/api/event", async (req: restify.Request, res: restify.Response) => {
     const email = getUser(req);
+    const events: Event[] = await getEvents(email);
+    res.send(events);
+});
 
+server.post("/api/event", async (req: restify.Request, res: restify.Response) => {
+    const { name, project, person, dateStart, dateEnd } = req.body;
+    const event: Event = await saveEvent(name, project, person, dateStart, dateEnd);
+    res.send(event);
 });
 
 server.listen(3000, () => {

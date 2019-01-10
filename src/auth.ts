@@ -37,7 +37,10 @@ export function auth(idToken: string): Promise<boolean> {
 }
 
 export function getUser(req: restify.Request): string {
-    const jwt: string = req.headers.authorization.split(" ")[1];
-    const decoded = jwt_decode(jwt);
-    return (<any>decoded).email;
+    if(process.env.ENV !== "DEV") {
+        const jwt: string = req.headers.authorization.split(" ")[1];
+        const decoded = jwt_decode(jwt);
+        return (<any>decoded).email;
+    }
+    return "michael@szul.us";
 }

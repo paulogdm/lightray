@@ -1,10 +1,10 @@
 import * as azure from "azure-storage";
 import { TableServiceAsync, Event } from "../schema";
-import { getOrCreateTable } from "../storage";
+import { createTableServiceAsync } from "../storage";
 import * as uuidv1 from "uuid/v1";
 
 export async function getEvents(email: string): Promise<Event[]> {
-    const ats: TableServiceAsync = await getOrCreateTable("event");
+    const ats: TableServiceAsync = createTableServiceAsync();
     const query = new azure.TableQuery().where('PartitionKey eq ?', email);
     const r = await ats.queryEntitiesAsync("event", query);
     if(r.entries != null) {
@@ -14,7 +14,7 @@ export async function getEvents(email: string): Promise<Event[]> {
 }
 
 export async function saveEvent(name: string, project: string, person: string, dateStart: Date, dateEnd?: Date): Promise<Event> {
-    const ats: TableServiceAsync = await getOrCreateTable("event");
+    const ats: TableServiceAsync =  createTableServiceAsync();
     const e = azure.TableUtilities.entityGenerator;
     const event = {
         PartitionKey: e.String(project),

@@ -1,11 +1,11 @@
 import * as azure from "azure-storage";
 import { TableServiceAsync, User } from "../schema";
-import { getOrCreateTable } from "../storage";
+import { createTableServiceAsync } from "../storage";
 import * as uuidv1 from "uuid/v1";
 import * as jwt_decode from "jwt-decode";
 
 export async function checkOrCreateUser(accessToken: string, idToken: string, email: string): Promise<User> {
-    const ats: TableServiceAsync = await getOrCreateTable("user");
+    const ats: TableServiceAsync =createTableServiceAsync();
     const query = new azure.TableQuery().where('PartitionKey eq ?', email);
     const r = await ats.queryEntitiesAsync("user", query);
     if(r.entries != null && r.entries.length > 0) {
@@ -38,7 +38,7 @@ export async function checkOrCreateUser(accessToken: string, idToken: string, em
 }
 
 export async function getUser(email: string): Promise<User> {
-    const ats: TableServiceAsync = await getOrCreateTable("user");
+    const ats: TableServiceAsync = createTableServiceAsync();
     const query = new azure.TableQuery().where('PartitionKey eq ?', email);
     const r = await ats.queryEntitiesAsync("user", query);
     if(r.entries != null && r.entries.length > 0) {

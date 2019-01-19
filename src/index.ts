@@ -1,6 +1,7 @@
 import * as restify from "restify";
 import { config } from "dotenv";
 import { User, Event } from "./schema";
+import { bootstrap } from "./util";
 import { auth, getUser } from "./auth";
 import { checkOrCreateUser } from "./models/user";
 import { getEvents, saveEvent } from "./models/event";
@@ -63,5 +64,6 @@ server.post("/api/event", async (req: restify.Request, res: restify.Response) =>
 });
 
 server.listen(3000, () => {
+    bootstrap();
     console.log(`Server listening at ${server.url}`);
 });

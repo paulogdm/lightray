@@ -1,11 +1,11 @@
 import * as azure from "azure-storage";
 import { TableServiceAsync, Skill, User } from "../schema";
 import { getUser } from "./user";
-import { getOrCreateTable, insertOrReplaceItem } from "../storage";
+import {createTableServiceAsync, insertOrReplaceItem } from "../storage";
 import * as uuidv1 from "uuid/v1";
 
 export async function getSkills(email?: string): Promise<Skill[]> {
-    const ats: TableServiceAsync = await getOrCreateTable("skill");
+    const ats: TableServiceAsync =  createTableServiceAsync();
     const query = (email !== null) ? new azure.TableQuery().where('PartitionKey eq ?', email) : new azure.TableQuery();
     const r = await ats.queryEntitiesAsync("skill", query);
     if(r.entries != null) {
@@ -15,7 +15,7 @@ export async function getSkills(email?: string): Promise<Skill[]> {
 }
 
 export async function saveSkill(email: string, skill: string): Promise<Skill> {
-    const ats: TableServiceAsync = await getOrCreateTable("skill");
+    const ats: TableServiceAsync = createTableServiceAsync();
     const query = new azure.TableQuery().where('PartitionKey eq ?', skill);
     const r = await ats.queryEntitiesAsync("skill", query);
     if(r.entries != null && r.entries.length > 0) {

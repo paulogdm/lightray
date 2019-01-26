@@ -3,9 +3,9 @@ import { TableServiceAsync, Event } from "../schema";
 import { createTableServiceAsync } from "../storage";
 import * as uuidv1 from "uuid/v1";
 
-export async function getEvents(email: string): Promise<Event[]> {
+export async function getEvents(project: string): Promise<Event[]> {
     const ats: TableServiceAsync = createTableServiceAsync();
-    const query = new azure.TableQuery().where('PartitionKey eq ?', email);
+    const query = new azure.TableQuery().where('PartitionKey eq ?', project);
     const r = await ats.queryEntitiesAsync("event", query);
     if(r.entries != null) {
         return Promise.resolve(r.entries as Event[]);

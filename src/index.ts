@@ -3,7 +3,7 @@ import { config } from "dotenv";
 import { User, Event } from "./schema";
 import { bootstrap } from "./util";
 import { auth, getUser } from "./auth";
-import { checkOrCreateUser } from "./models/user";
+import { getOrCreateUser } from "./models/user";
 import { getEvents, saveEvent } from "./models/event";
 import * as jwt_decode from "jwt-decode";
 
@@ -41,7 +41,7 @@ server.post("/api/auth", async (req: restify.Request, res: restify.Response) => 
     const { accessToken, idToken, email } = req.body;
     const isValid: boolean = await auth(idToken);
     if (isValid) {
-        const user: User = await checkOrCreateUser(accessToken, idToken, email);
+        const user: User = await getOrCreateUser(accessToken, idToken, email);
         res.send(
             {
                 isValid: isValid,

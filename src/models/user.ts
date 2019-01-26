@@ -4,7 +4,7 @@ import { createTableServiceAsync } from "../storage";
 import * as uuidv1 from "uuid/v1";
 import * as jwt_decode from "jwt-decode";
 
-export async function checkOrCreateUser(accessToken: string, idToken: string, email: string): Promise<User> {
+export async function getOrCreateUser(accessToken: string, idToken: string, email: string): Promise<User> {
     const ats: TableServiceAsync =createTableServiceAsync();
     const query = new azure.TableQuery().where('PartitionKey eq ?', email);
     const r = await ats.queryEntitiesAsync("user", query);

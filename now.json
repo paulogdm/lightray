@@ -1,6 +1,14 @@
 {
     "name": "lightray",
-    "version": 1,
+    "builds": [
+        { "src": "api/**/*.js", "use": "@now/node" },
+        { "src": "*.html", "use": "@now/static" },
+        { "src": "*.json", "use": "@now/static" },
+		{ "src": "static/**/*.*", "use": "@now/static" }
+    ],
+    "routes": [
+        { "src": "/api", "dest": "/api/index.js" }
+    ],
     "alias": [
         "lightray.app"
     ]

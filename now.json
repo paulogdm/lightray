@@ -1,15 +1,18 @@
 {
+    "version": 2,
     "name": "lightray",
     "builds": [
-        { "src": "api/**/*.js", "use": "@now/node" },
+        { "src": "src/index.ts", "use": "@now/node@canary" },
         { "src": "*.html", "use": "@now/static" },
         { "src": "*.json", "use": "@now/static" },
-		{ "src": "static/**/*.*", "use": "@now/static" }
+        { "src": "static/**", "use": "@now/static" }
     ],
     "routes": [
-        { "src": "/api", "dest": "/api/index.js" }
+        { "src": "^/api/(.*)", "dest": "/src/index.ts" },
+	{ "src": "^/", "dest": "/index.html" },
+	{ "src": "^/event", "dest": "/event.html" },
+	{ "src": "^/static/(.+)", "dest": "/static/$1" },
+	{ "src": "^/(.*)", "dest": "/index.html" },
     ],
-    "alias": [
-        "lightray.app"
-    ]
+
 }

@@ -2,7 +2,7 @@
     "version": 2,
     "name": "lightray",
     "builds": [
-        { "src": "src/index.ts", "use": "@now/node@canary" },
+        { "src": "src/index.ts", "use": "@now/node-server@canary" },
         { "src": "*.html", "use": "@now/static" },
         { "src": "*.json", "use": "@now/static" },
         { "src": "static/**", "use": "@now/static" }

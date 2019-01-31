@@ -12,7 +12,6 @@
 	{ "src": "^/", "dest": "/index.html" },
 	{ "src": "^/event", "dest": "/event.html" },
 	{ "src": "^/static/(.+)", "dest": "/static/$1" },
-	{ "src": "^/(.*)", "dest": "/index.html" },
-    ],
-
+	{ "src": "^/(.*)", "dest": "/index.html" }
+    ]
 }
